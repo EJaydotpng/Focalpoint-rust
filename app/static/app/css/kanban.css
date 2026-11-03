@@ -352,6 +352,13 @@ svg {
     background: #fff;
     font: inherit;
     color: var(--text);
+    box-sizing: border-box;
+}
+
+.form-field input,
+.form-field select {
+    height: 38px;
+    line-height: normal;
 }
 
 .form-field textarea { resize: vertical; }
@@ -607,6 +614,9 @@ svg {
 .tag--high { --tone: var(--high); }
 .tag--critical { --tone: var(--critical); }
 
+/* Due-date pill */
+.tag--due { border-color: var(--border-strong); color: var(--text-muted); }
+
 .tag--low .bars i:nth-child(-n+1),
 .tag--medium .bars i:nth-child(-n+2),
 .tag--high .bars i:nth-child(-n+3),
@@ -705,6 +715,45 @@ svg {
 .category-form { padding-top: 4px; }
 .category-form__title { margin: 0 0 12px; font-size: 14px; font-weight: 600; }
 .category-list + .category-form { border-top: 0; }
+
+/* Category modal: two-column layout (existing categories | add new category) with fixed height */
+.category-modal .modal-panel { width: 700px; max-width: none; max-height: 640px; }
+.category-grid {
+    display: flex;
+    gap: 20px;
+    height: calc(640px - 96px); /* modal panel minus header (~48px) and panel padding */
+    overflow: hidden;
+}
+.category-list-panel,
+.category-form-panel {
+    flex: 1;
+    min-width: 0;
+    /* overflow-y: auto; */
+}
+.category-list-panel {
+    border-right: 1px solid var(--border);
+    padding-right: 16px;
+}
+.category-list-panel h4,
+.category-form-panel h4 {
+    margin: 0 0 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.category-list-panel .category-list { margin: 0; }
+.category-list-panel .category-empty { margin: 0; }
+
+.category-form-panel {
+    display: flex;
+    flex-direction: column;
+}
+.category-form { padding-top: 0; }
+.category-form-panel .form-field { margin-bottom: 12px; }
+.category-form-panel .swatches { gap: 8px; }
+.category-form-panel .form-actions { margin-top: auto; }
 
 /* Task view dialog */
 .view-ticket { font-size: 13px; font-weight: 500; color: var(--text-muted); }
@@ -824,7 +873,7 @@ svg {
 }
 
 /* Dialog extras */
-.modal-panel--small { max-width: 400px; }
+.modal-panel--small { max-width: 750px; }
 
 .field-label {
     display: block;

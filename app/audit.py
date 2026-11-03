@@ -3,7 +3,7 @@
 from .models import Task, TaskEvent
 
 # The task fields that are tracked, in the order they are shown.
-EDIT_FIELDS = ['Title', 'Description', 'Priority', 'Assignee', 'Category']
+EDIT_FIELDS = ['Title', 'Description', 'Priority', 'Assignee', 'Category', 'Due Date']
 
 
 def snapshot(task):
@@ -15,6 +15,7 @@ def snapshot(task):
         'Priority': task.get_priority_display(),
         'Assignee': task.assignee.username if task.assignee_id else '',
         'Category': task.category.name if task.category_id else '',
+        'Due Date': task.due_date.isoformat() if task.due_date else '',
         'Column': task.column.name,
     }
 
@@ -44,7 +45,7 @@ def record_created(task, actor):
     values = snapshot(task)
     changes = [
         {'field': f, 'from': None, 'to': values[f]}
-        for f in ['Column', 'Priority', 'Assignee', 'Category', 'Description']
+        for f in ['Column', 'Priority', 'Assignee', 'Category', 'Due Date', 'Description']
         if values[f]
     ]
     return record(task, TaskEvent.CREATED, actor, changes)

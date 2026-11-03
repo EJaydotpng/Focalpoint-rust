@@ -86,6 +86,7 @@ class Task(models.Model):
     assignee = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.SET_NULL, related_name='assigned_tasks'
     )
+    due_date = models.DateField(null=True, blank=True, help_text="Optional due date")
     position = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -105,6 +105,7 @@ def task_create(request, board_pk):
                 priority=priority if priority in VALID_PRIORITIES else 'medium',
                 assignee_id=request.POST.get('assignee') or None,
                 category=_board_category(board, request.POST.get('category')),
+                due_date=request.POST.get('due_date') or None,
                 position=last_position,
             )
             audit.record_created(task, request.user)
@@ -162,6 +163,7 @@ def task_edit(request, pk):
                 task.priority = priority
             task.assignee_id = request.POST.get('assignee') or None
             task.category = _board_category(task.board, request.POST.get('category'))
+            task.due_date = request.POST.get('due_date') or None
             column_id = request.POST.get('column')
             if column_id and str(task.column_id) != column_id:
                 column = get_object_or_404(Column, pk=column_id, board=task.board)

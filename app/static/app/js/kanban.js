@@ -154,6 +154,7 @@
         document.getElementById('modal-desc').value = card.dataset.description;
         document.getElementById('modal-priority').value = card.dataset.priority;
         document.getElementById('modal-assignee').value = card.dataset.assignee;
+        document.getElementById('modal-due-date').value = card.dataset.dueDate || '';
         document.getElementById('modal-column').value = card.closest('.column').dataset.columnId;
         document.getElementById('modal-category').value = card.dataset.category;
         setTaskModal('edit', card.dataset.ticket);
@@ -318,6 +319,17 @@
             category.classList.add('is-empty');
         }
         category.classList.toggle('is-empty', !d.categoryName);
+
+        const due = document.getElementById('view-due-date');
+        due.textContent = '';
+        due.classList.toggle('is-empty', !d.dueDate);
+        if (d.dueDate) {
+            due.textContent = new Date(d.dueDate + 'T00:00:00').toLocaleDateString(undefined, {
+                year: 'numeric', month: 'short', day: 'numeric',
+            });
+        } else {
+            due.textContent = 'None';
+        }
 
         const assignee = document.getElementById('view-assignee');
         assignee.textContent = '';

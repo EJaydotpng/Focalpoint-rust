@@ -26,8 +26,8 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Task)
 class TaskAdmin(admin.ModelAdmin):
-    list_display = ('ticket_id', 'title', 'board', 'column', 'category', 'priority', 'assignee', 'created_at')
-    list_filter = ('board', 'column', 'category', 'priority', 'assignee')
+    list_display = ('ticket_id', 'title', 'board', 'column', 'category', 'priority', 'assignee', 'due_date', 'created_at')
+    list_filter = ('board', 'column', 'category', 'priority', 'assignee', 'due_date')
     search_fields = ('title', 'description')
 
 
